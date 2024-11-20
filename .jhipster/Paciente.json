@@ -1,0 +1,35 @@
+{
+  "annotations": {
+    "changelogDate": "20241119221840"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "age",
+      "fieldType": "Integer"
+    }
+  ],
+  "name": "Paciente",
+  "relationships": [
+    {
+      "otherEntityName": "medico",
+      "otherEntityRelationshipName": "paciente",
+      "relationshipName": "medico",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "centroSalud",
+      "otherEntityRelationshipName": "paciente",
+      "relationshipName": "centroSalud",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

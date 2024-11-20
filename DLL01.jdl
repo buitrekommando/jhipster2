@@ -1,0 +1,34 @@
+entity Paciente {
+  name String required,
+  age Integer,
+  // Otros atributos
+}
+
+entity Medico {
+  name String required,
+  specialty String,
+  // Otros atributos
+}
+
+entity CentroSalud {
+  name String required,
+  address String,
+  // Otros atributos
+}
+
+entity Reserva {
+  date ZonedDateTime required,
+  // Otros atributos
+}
+
+relationship ManyToOne {
+  Reserva{paciente} to Paciente
+  Reserva{medico} to Medico
+  Reserva{centroSalud} to CentroSalud
+}
+
+relationship OneToMany {
+  Medico{paciente} to Paciente{medico}
+  CentroSalud{paciente} to Paciente{centroSalud}
+  CentroSalud{medico} to Medico{centroSalud}
+}

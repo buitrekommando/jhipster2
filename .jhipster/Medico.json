@@ -1,0 +1,35 @@
+{
+  "annotations": {
+    "changelogDate": "20241119221839"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "specialty",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Medico",
+  "relationships": [
+    {
+      "otherEntityName": "paciente",
+      "otherEntityRelationshipName": "medico",
+      "relationshipName": "paciente",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "centroSalud",
+      "otherEntityRelationshipName": "medico",
+      "relationshipName": "centroSalud",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

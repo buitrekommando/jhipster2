@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (reserva(); as reservaRef) {
+      <div>
+        <h2 data-cy="reservaDetailsHeading"><span jhiTranslate="prueba2App.reserva.detail.title">Reserva</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ reservaRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="prueba2App.reserva.date">Date</span></dt>
+          <dd>
+            <span>{{ reservaRef.date | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="prueba2App.reserva.paciente">Paciente</span></dt>
+          <dd>
+            @if (reserva()!.paciente) {
+              <div>
+                <a [routerLink]="['/paciente', reserva()!.paciente?.id, 'view']">{{ reservaRef.paciente?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="prueba2App.reserva.medico">Medico</span></dt>
+          <dd>
+            @if (reserva()!.medico) {
+              <div>
+                <a [routerLink]="['/medico', reserva()!.medico?.id, 'view']">{{ reservaRef.medico?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="prueba2App.reserva.centroSalud">Centro Salud</span></dt>
+          <dd>
+            @if (reserva()!.centroSalud) {
+              <div>
+                <a [routerLink]="['/centro-salud', reserva()!.centroSalud?.id, 'view']">{{ reservaRef.centroSalud?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/reserva', reservaRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

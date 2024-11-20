@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (paciente(); as pacienteRef) {
+      <div>
+        <h2 data-cy="pacienteDetailsHeading"><span jhiTranslate="prueba2App.paciente.detail.title">Paciente</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ pacienteRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="prueba2App.paciente.name">Name</span></dt>
+          <dd>
+            <span>{{ pacienteRef.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="prueba2App.paciente.age">Age</span></dt>
+          <dd>
+            <span>{{ pacienteRef.age }}</span>
+          </dd>
+          <dt><span jhiTranslate="prueba2App.paciente.medico">Medico</span></dt>
+          <dd>
+            @if (paciente()!.medico) {
+              <div>
+                <a [routerLink]="['/medico', paciente()!.medico?.id, 'view']">{{ pacienteRef.medico?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="prueba2App.paciente.centroSalud">Centro Salud</span></dt>
+          <dd>
+            @if (paciente()!.centroSalud) {
+              <div>
+                <a [routerLink]="['/centro-salud', paciente()!.centroSalud?.id, 'view']">{{ pacienteRef.centroSalud?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/paciente', pacienteRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

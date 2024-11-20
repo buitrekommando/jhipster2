@@ -1,0 +1,116 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-reserva-heading" data-cy="ReservaCreateUpdateHeading" jhiTranslate="prueba2App.reserva.home.createOrEditLabel">
+        Crear o editar Reserva
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="prueba2App.reserva.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let dateRef = editForm.get('date')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_date" jhiTranslate="prueba2App.reserva.date">Date</label>
+          <div class="d-flex">
+            <input
+              id="field_date"
+              data-cy="date"
+              type="datetime-local"
+              class="form-control"
+              name="date"
+              formControlName="date"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (dateRef.invalid && (dateRef.dirty || dateRef.touched)) {
+            <div>
+              @if (editForm.get('date')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('date')?.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Este campo debe ser una fecha y hora.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_paciente" jhiTranslate="prueba2App.reserva.paciente">Paciente</label>
+          <select
+            class="form-control"
+            id="field_paciente"
+            data-cy="paciente"
+            name="paciente"
+            formControlName="paciente"
+            [compareWith]="comparePaciente"
+          >
+            <option [ngValue]="null"></option>
+            @for (pacienteOption of pacientesSharedCollection; track $index) {
+              <option [ngValue]="pacienteOption">{{ pacienteOption.name }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_medico" jhiTranslate="prueba2App.reserva.medico">Medico</label>
+          <select
+            class="form-control"
+            id="field_medico"
+            data-cy="medico"
+            name="medico"
+            formControlName="medico"
+            [compareWith]="compareMedico"
+          >
+            <option [ngValue]="null"></option>
+            @for (medicoOption of medicosSharedCollection; track $index) {
+              <option [ngValue]="medicoOption">{{ medicoOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_centroSalud" jhiTranslate="prueba2App.reserva.centroSalud">Centro Salud</label>
+          <select
+            class="form-control"
+            id="field_centroSalud"
+            data-cy="centroSalud"
+            name="centroSalud"
+            formControlName="centroSalud"
+            [compareWith]="compareCentroSalud"
+          >
+            <option [ngValue]="null"></option>
+            @for (centroSaludOption of centroSaludsSharedCollection; track $index) {
+              <option [ngValue]="centroSaludOption">{{ centroSaludOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

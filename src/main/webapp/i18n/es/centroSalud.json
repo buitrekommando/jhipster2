@@ -1,0 +1,27 @@
+{
+  "prueba2App": {
+    "centroSalud": {
+      "home": {
+        "title": "Centro Saluds",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Centro Salud",
+        "createOrEditLabel": "Crear o editar Centro Salud",
+        "notFound": "Ningún Centro Saluds encontrado"
+      },
+      "created": "Un nuevo Centro Salud ha sido creado con el identificador {{ param }}",
+      "updated": "Un Centro Salud ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Centro Salud ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Centro Salud {{ id }}?"
+      },
+      "detail": {
+        "title": "Centro Salud"
+      },
+      "id": "ID",
+      "name": "Name",
+      "address": "Address",
+      "paciente": "Paciente",
+      "medico": "Medico"
+    }
+  }
+}

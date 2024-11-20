@@ -1,0 +1,120 @@
+<div>
+  <h2 id="page-heading" data-cy="PacienteHeading">
+    <span jhiTranslate="prueba2App.paciente.home.title">Pacientes</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="prueba2App.paciente.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-paciente"
+        [routerLink]="['/paciente/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="prueba2App.paciente.home.createLabel">Crear nuevo Paciente</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (pacientes?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="prueba2App.paciente.home.notFound">Ningún Pacientes encontrado</span>
+    </div>
+  }
+
+  @if (pacientes && pacientes.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="name">
+              <div class="d-flex">
+                <span jhiTranslate="prueba2App.paciente.name">Name</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="age">
+              <div class="d-flex">
+                <span jhiTranslate="prueba2App.paciente.age">Age</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="medico.id">
+              <div class="d-flex">
+                <span jhiTranslate="prueba2App.paciente.medico">Medico</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="centroSalud.id">
+              <div class="d-flex">
+                <span jhiTranslate="prueba2App.paciente.centroSalud">Centro Salud</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (paciente of pacientes; track trackId(paciente)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/paciente', paciente.id, 'view']">{{ paciente.id }}</a>
+              </td>
+              <td>{{ paciente.name }}</td>
+              <td>{{ paciente.age }}</td>
+              <td>
+                @if (paciente.medico) {
+                  <div>
+                    <a [routerLink]="['/medico', paciente.medico.id, 'view']">{{ paciente.medico.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (paciente.centroSalud) {
+                  <div>
+                    <a [routerLink]="['/centro-salud', paciente.centroSalud.id, 'view']">{{ paciente.centroSalud.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/paciente', paciente.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a [routerLink]="['/paciente', paciente.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(paciente)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

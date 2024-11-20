@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Medico.
+    -->
+    <changeSet id="20241119221839-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="centro_salud_id"
+                                 baseTableName="medico"
+                                 constraintName="fk_medico__centro_salud_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="centro_salud"
+                                 />
+    </changeSet>
+</databaseChangeLog>
